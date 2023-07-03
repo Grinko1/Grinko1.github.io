@@ -16,6 +16,9 @@ let config = {
   resolve: {
     extensions: ['.js', '.jsx'], // расширения по умолчанию если не указаны в import
     modules: ['./', 'node_modules'], // Где искать файлы подключаемых модулей (пакетов)
+    alias: {
+      '@src': path.resolve(__dirname, './src'),
+    },
   },
   module: {
     rules: [
@@ -32,6 +35,18 @@ let config = {
           {loader: MiniCssExtractPlugin.loader, options: {}},
           {loader: 'css-loader', options: {url: true, import: true}},
         ]
+      },
+      {
+        test: /\.less$/,
+        use: [
+          { loader: MiniCssExtractPlugin.loader, options: {} },
+          { loader: 'css-loader', options: { url: true, import: true } },
+          { loader: 'less-loader', options: { lessOptions: {} } },
+        ],
+      },
+      {
+        test: /\.(svg|png|swf|jpg|otf|eot|ttf|woff|woff2)(\?.*)?$/,
+        type: 'asset',
       },
     ]
   },

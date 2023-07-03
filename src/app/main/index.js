@@ -1,14 +1,14 @@
 import {memo} from 'react';
-import useStore from "../../hooks/use-store";
-import useTranslate from "../../hooks/use-translate";
-import useInit from "../../hooks/use-init";
-import Navigation from "../../containers/navigation";
-import PageLayout from "../../components/page-layout";
-import Head from "../../components/head";
-import CatalogFilter from "../../containers/catalog-filter";
-import CatalogList from "../../containers/catalog-list";
-import LocaleSelect from "../../containers/locale-select";
-import TopHead from "../../containers/top-head";
+import useStore from "@src/hooks/use-store";
+import useTranslate from "@src/hooks/use-translate";
+import useInit from "@src/hooks/use-init";
+import Navigation from "@src/containers/navigation";
+import PageLayout from "@src/components/page-layout";
+import Head from "@src/components/head";
+import CatalogFilter from "@src/containers/catalog-filter";
+import CatalogList from "@src/containers/catalog-list";
+import LocaleSelect from "@src/containers/locale-select";
+import TopHead from "@src/containers/top-head";
 
 function Main() {
 

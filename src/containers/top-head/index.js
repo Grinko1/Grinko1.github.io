@@ -1,9 +1,9 @@
 import {memo, useCallback} from "react";
-import SideLayout from "../../components/side-layout";
+import SideLayout from "@src/components/side-layout";
 import {Link, useLocation, useNavigate} from "react-router-dom";
-import useTranslate from "../../hooks/use-translate";
-import useSelector from "../../hooks/use-selector";
-import useStore from "../../hooks/use-store";
+import useTranslate from "@src/hooks/use-translate";
+import useSelector from "@src/hooks/use-selector";
+import useStore from "@src/hooks/use-store";
 
 function TopHead() {
 

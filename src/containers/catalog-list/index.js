@@ -1,11 +1,11 @@
 import {memo, useCallback} from "react";
-import useStore from "../../hooks/use-store";
-import useSelector from "../../hooks/use-selector";
-import useTranslate from "../../hooks/use-translate";
-import Item from "../../components/item";
-import List from "../../components/list";
-import Pagination from "../../components/pagination";
-import Spinner from "../../components/spinner";
+import useStore from "@src/hooks/use-store";
+import useSelector from "@src/hooks/use-selector";
+import useTranslate from "@src/hooks/use-translate";
+import Item from "@src/components/item";
+import List from "@src/components/list";
+import Pagination from "@src/components/pagination";
+import Spinner from "@src/components/spinner";
 
 function CatalogList() {
   const store = useStore();

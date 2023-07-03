@@ -1,17 +1,17 @@
 import {memo, useCallback, useMemo} from 'react';
 import {useParams} from "react-router-dom";
-import useStore from "../../hooks/use-store";
-import useSelector from "../../hooks/use-selector";
-import useTranslate from "../../hooks/use-translate";
-import useInit from "../../hooks/use-init";
-import PageLayout from "../../components/page-layout";
-import Head from "../../components/head";
-import Navigation from "../../containers/navigation";
-import Spinner from "../../components/spinner";
-import ArticleCard from "../../components/article-card";
-import LocaleSelect from "../../containers/locale-select";
-import TopHead from "../../containers/top-head";
-import ProfileCard from "../../components/profile-card";
+import useStore from "@src/hooks/use-store";
+import useSelector from "@src/hooks/use-selector";
+import useTranslate from "@src/hooks/use-translate";
+import useInit from "@src/hooks/use-init";
+import PageLayout from "@src/components/page-layout";
+import Head from "@src/components/head";
+import Navigation from "@src/containers/navigation";
+import Spinner from "@src/components/spinner";
+import ArticleCard from "@src/components/article-card";
+import LocaleSelect from "@src/containers/locale-select";
+import TopHead from "@src/containers/top-head";
+import ProfileCard from "@src/components/profile-card";
 
 function Profile() {
   const store = useStore();

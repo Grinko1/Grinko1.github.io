@@ -1,5 +1,5 @@
 import StoreModule from "../module";
-import exclude from "../../utils/exclude";
+import exclude from "@src/utils/exclude";
 
 /**
  * Состояние каталога - параметры фильтра исписок товара

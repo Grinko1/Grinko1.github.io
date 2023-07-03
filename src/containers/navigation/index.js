@@ -1,12 +1,12 @@
 import {memo, useCallback, useMemo} from "react";
-import useStore from "../../hooks/use-store";
-import useSelector from "../../hooks/use-selector";
-import useTranslate from "../../hooks/use-translate";
-import Menu from "../../components/menu";
-import BasketTool from "../../components/basket-tool";
-import SideLayout from "../../components/side-layout";
+import useStore from "@src/hooks/use-store";
+import useSelector from "@src/hooks/use-selector";
+import useTranslate from "@src/hooks/use-translate";
+import Menu from "@src/components/menu";
+import BasketTool from "@src/components/basket-tool";
+import SideLayout from "@src/components/side-layout";
 import {useDispatch} from 'react-redux';
-import modalsActions from '../../store-redux/modals/actions';
+import modalsActions from '@src/store-redux/modals/actions';
 
 function Navigation() {
   const store = useStore();

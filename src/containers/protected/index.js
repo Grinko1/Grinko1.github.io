@@ -1,6 +1,6 @@
 import {memo, useEffect} from "react";
 import PropTypes from 'prop-types';
-import useSelector from "../../hooks/use-selector";
+import useSelector from "@src/hooks/use-selector";
 import {useLocation, useNavigate} from "react-router-dom";
 
 function Protected({children, redirect}) {

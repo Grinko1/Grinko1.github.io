@@ -1,8 +1,8 @@
 import {useCallback, useContext} from "react";
-// import useStore from "../store/use-store";
-// import useSelector from "../store/use-selector";
-// import translate from "../i18n/translate";
-import {I18nContext} from "../i18n/context";
+// import useStore from "@src/store/use-store";
+// import useSelector from "@src/store/use-selector";
+// import translate from "@src/i18n/translate";
+import {I18nContext} from "@src/i18n/context";
 
 /**
  * Хук возвращает функцию для локализации текстов, код языка и функцию его смены
