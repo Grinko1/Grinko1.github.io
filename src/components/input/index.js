@@ -24,6 +24,7 @@ function Input(props) {
   // Обновление стейта, если передан новый value
   useLayoutEffect(() => setValue(props.value), [props.value]);
 
+
   const cn = bem('Input');
   return (
     <input
@@ -37,13 +38,13 @@ function Input(props) {
 }
 
 Input.propTypes = {
-  value: PropTypes.string,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   name: PropTypes.string,
   type: PropTypes.string,
   placeholder: PropTypes.string,
   onChange: PropTypes.func,
   theme: PropTypes.string,
-}
+};
 
 Input.defaultProps = {
   onChange: () => {},

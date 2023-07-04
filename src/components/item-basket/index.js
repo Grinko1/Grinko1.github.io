@@ -36,7 +36,7 @@ ItemBasket.propTypes = {
     _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     title: PropTypes.string,
     price: PropTypes.number,
-    amount: PropTypes.number
+    amount:  PropTypes.number,
   }).isRequired,
   link: PropTypes.string,
   onLink: PropTypes.func,
@@ -44,7 +44,7 @@ ItemBasket.propTypes = {
   labelCurr: PropTypes.string,
   labelDelete: PropTypes.string,
   labelUnit: PropTypes.string,
-}
+};
 
 ItemBasket.defaultProps = {
   onRemove: () => {},

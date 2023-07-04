@@ -9,6 +9,7 @@
   "basket.total": "Итого",
   "basket.unit": "шт",
   "basket.delete": "Удалить",
+  "basket.cancel": "Отмена",
   "basket.articles": {
     "one": "товар",
     "few": "товара",

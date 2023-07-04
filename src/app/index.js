@@ -23,6 +23,7 @@ function App() {
   })
 
   const activeModal = useSelectorRedux(state => state.modals.name);
+  
 
   return (
     <>

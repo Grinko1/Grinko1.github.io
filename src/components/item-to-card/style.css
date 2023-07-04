@@ -1,0 +1,24 @@
+.ItemToCard{
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ flex-direction: column;
+ gap: 30px;
+}
+.ItemToCard button{
+  cursor: pointer;
+}
+.ItemToCard-qtt{
+  display: flex;
+  gap: 10px;
+}
+.ItemToCard-qtt button{
+  width: 30px;
+}
+.ItemToCard-actions{
+  display: flex;
+  gap: 30px;
+}
+.ItemToCard-actions button{
+width: 75px;
+}

@@ -9,6 +9,7 @@
   "basket.total": "Total",
   "basket.unit": "pcs",
   "basket.delete": "Delete",
+  "basket.cancel": "Cancel",
   "basket.articles": {
     "one": "article",
     "other": "articles"
