@@ -8,7 +8,7 @@ import SideLayout from "@src/components/side-layout";
 import treeToList from "@src/utils/tree-to-list";
 import listToTree from "@src/utils/list-to-tree";
 
-function CatalogFilter() {
+function CatalogFilter({useId='main'}) {
 
   const store = useStore();
 
@@ -19,15 +19,30 @@ function CatalogFilter() {
     categories: state.categories.list,
   }));
 
+
   const callbacks = {
     // Сортировка
-    onSort: useCallback(sort => store.actions.catalog.setParams({sort}), [store]),
+    onSort: useCallback(
+      (sort) => store.actions.catalog.setParams({ sort }, useId),
+      [store]
+    ),
     // Поиск
-    onSearch: useCallback(query => store.actions.catalog.setParams({query, page: 1}), [store]),
+    onSearch: useCallback(
+      (query) =>
+        store.actions.catalog.setParams({ query, page: 1 }, useId),
+      [store]
+    ),
     // Сброс
-    onReset: useCallback(() => store.actions.catalog.resetParams(), [store]),
+    onReset: useCallback(
+      () => store.actions.catalog.resetParams(),
+      [store]
+    ),
     // Фильтр по категории
-    onCategory: useCallback(category => store.actions.catalog.setParams({category, page: 1}), [store]),
+    onCategory: useCallback(
+      (category) =>
+        store.actions.catalog.setParams({ category, page: 1 }, useId),
+      [store]
+    ),
   };
 
   const options = {

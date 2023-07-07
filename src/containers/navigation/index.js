@@ -19,6 +19,11 @@ function Navigation() {
   }));
 
   const callbacks = {
+     openModal: useCallback(
+      (name) => {
+        store.actions.modals.open("basket");
+      },
+      [store]),
     // Открытие модалки корзины
     openModalBasket: useCallback(() => {
       //store.actions.modals.open('basket')
@@ -41,9 +46,14 @@ function Navigation() {
   };
 
   return (
-    <SideLayout side='between'>
-      <Menu items={options.menu} onNavigate={callbacks.onNavigate}/>
-      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} t={t}/>
+    <SideLayout side="between">
+      <Menu items={options.menu} onNavigate={callbacks.onNavigate} />
+      <BasketTool
+        onOpen={callbacks.openModal}
+        amount={select.amount}
+        sum={select.sum}
+        t={t}
+      />
     </SideLayout>
   );
 }

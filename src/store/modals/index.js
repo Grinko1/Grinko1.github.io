@@ -1,19 +1,43 @@
 import StoreModule from "../module";
 
 class ModalsState extends StoreModule {
-
   initState() {
     return {
-      name: null
+      modals: [],
+    };
+  }
+
+  open(name, id = "") {
+    const exist = this.getState().modals?.findIndex(
+      (modal) => modal.name === name
+    );
+    if (exist === -1) {
+      this.setState(
+        {
+          ...this.getState(),
+          modals: [
+            ...this.getState().modals,
+            {
+              name: name,
+              isOpen: true,
+              id: id,
+            },
+          ],
+        },
+        `Открытие модалки ${name}`
+      );
     }
   }
 
-  open(name){
-    this.setState({name}, `Открытие модалки ${name}`);
-  }
-
-  close(){
-    this.setState({name: null}, `Закрытие модалки`);
+  close(name) {
+    const list = this.getState().modals.filter((item) => item.name !== name);
+    this.setState(
+      {
+        ...this.getState(),
+        modals: list,
+      },
+      `Закрытие модалки  ${name}`
+    );
   }
 }
 

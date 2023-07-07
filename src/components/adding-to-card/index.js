@@ -3,11 +3,12 @@ import ModalLayout from "@src/components/modal-layout";
 import React, { useState } from "react";
 
 
-const AddingToCard = ({t, ...props}) => {
+const AddingToCard = ({ t,...props}) => {
   const [qtt, setQtt] = useState(1);
 
+
   const callbacks = {
-    closeModal: () => props.closeModal(),
+    closeModal: () => props.closeModal('add'),
   };
 
 

@@ -1,22 +1,27 @@
-import { memo } from "react";
+import { memo, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
 import numberFormat from "@src/utils/number-format";
 import "./style.css";
 import { Link } from "react-router-dom";
 
-
-function Item(props) {
-  const cn = bem("Item");
+function ItemBasketModal(props) {
+  const cn = bem("ItemBasketModal");
+  const [isSelected, setIsSelected] = useState(false);
+ 
 
   const callbacks = {
-    openModalBasket: (e) => {
-      props.openModalBasket(props.item._id)},
+    select: () => {
+      setIsSelected(!isSelected);
+      props.select(props.item._id);
+  
+    },
   };
+
 
   return (
     <>
-      <div className={cn()} >
+      <div className={cn({ selected: isSelected })} onClick={callbacks.select}>
         <div className={cn("title")}>
           <Link to={props.link}>{props.item.title}</Link>
         </div>
@@ -24,15 +29,14 @@ function Item(props) {
           <div className={cn("price")}>
             {numberFormat(props.item.price)} {props.labelCurr}
           </div>
-          <button onClick={callbacks.openModalBasket}>{props.labelAdd}</button>
+          {/* <button onClick={callbacks.openModalBasket}>{props.labelAdd}</button> */}
         </div>
       </div>
-
     </>
   );
 }
 
-Item.propTypes = {
+ItemBasketModal.propTypes = {
   item: PropTypes.shape({
     _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     title: PropTypes.string,
@@ -45,10 +49,10 @@ Item.propTypes = {
   activeModal: PropTypes.string,
 };
 
-Item.defaultProps = {
+ItemBasketModal.defaultProps = {
   openModalBasket: () => {},
   labelCurr: "₽",
   labelAdd: "Добавить",
 };
 
-export default memo(Item);
+export default memo(ItemBasketModal);

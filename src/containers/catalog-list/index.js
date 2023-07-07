@@ -7,27 +7,44 @@ import List from "@src/components/list";
 import Pagination from "@src/components/pagination";
 import Spinner from "@src/components/spinner";
 import { useDispatch, useSelector as useSelectorRedux } from "react-redux";
-import modalsActions from "@src/store-redux/modals/actions";
-import AddingToCard from "@src/components/adding-to-card";
+import ItemBasketModal from "@src/components/item-basket-modal";
 
-function CatalogList() {
+function CatalogList(props) {
   const store = useStore();
-  const dispatch = useDispatch();
   const select = useSelector((state) => ({
     list: state.catalog.list,
     page: state.catalog.params.page,
     limit: state.catalog.params.limit,
     count: state.catalog.count,
     waiting: state.catalog.waiting,
+
   }));
 
-  const [itemId, setItemId] = useState(null);
 
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(
       (_id, qtt) => {
         store.actions.basket.addToBasket(_id, qtt);
+      },
+      [store]
+    ),
+    removeFromBasket: useCallback(
+      (_id) => {
+        store.actions.basket.removeFromBasket(_id);
+      },
+      [store]
+    ),
+    select: useCallback(
+      (_id) => {
+        store.actions.catalog.selectItem(_id);
+      },
+      [store]
+    ),
+
+    openModal: useCallback(
+      (name, id) => {
+        store.actions.modals.open(name, id);
       },
       [store]
     ),
@@ -48,47 +65,41 @@ function CatalogList() {
       },
       [select.limit, select.sort, select.query]
     ),
-    openModalBasket: useCallback(() => {
-      dispatch(modalsActions.open("add"));
-    }, [store]),
-    closeModal: useCallback(() => {
-      dispatch(modalsActions.close());
-    }, [store]),
   };
 
   const { t } = useTranslate();
-  const activeModal = useSelectorRedux((state) => state.modals.name);
-
 
   const openModalAndGetId = (_id) => {
-    setItemId(_id);
-    callbacks.openModalBasket();
+    callbacks.openModal("add", _id);
   };
+
 
   const renders = {
     item: useCallback(
       (item) => (
         <>
-          <Item
-            item={item}
-            openModalBasket={openModalAndGetId}
-            link={`/articles/${item._id}`}
-            labelAdd={t("article.add")}
-            activeModal={activeModal}
-          />
-          {activeModal === "add" && (
-            <AddingToCard
-              onAdd={callbacks.addToBasket}
-              closeModal={callbacks.closeModal}
-              _id={itemId}
-              t={t}
+          {props.useId === "modal_list_to_add" ? (
+            <ItemBasketModal
+              item={item}
+              openModalBasket={openModalAndGetId}
+              link={`/articles/${item._id}`}
+              labelAdd={t("article.add")}
+              select={callbacks.select}
+            />
+          ) : (
+            <Item
+              item={item}
+              openModalBasket={openModalAndGetId}
+              link={`/articles/${item._id}`}
+              labelAdd={t("article.add")}
             />
           )}
         </>
       ),
-      [callbacks.openModalBasket, t, activeModal]
+      [callbacks.openModalBasket, t]
     ),
   };
+
 
   return (
     <Spinner active={select.waiting}>

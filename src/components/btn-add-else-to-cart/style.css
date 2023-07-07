@@ -1,0 +1,9 @@
+.AddElseToCart {
+  margin: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.AddElseToCart-button{
+    cursor: pointer;
+}

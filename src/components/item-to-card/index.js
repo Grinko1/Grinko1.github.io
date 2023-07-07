@@ -33,7 +33,7 @@ function ItemToCard(props) {
       <div className={cn()}>
         <div className={cn("qtt")}>
           <button onClick={decreasedQtt}>-</button>
-          <Input value={props.qtt} onChange={props.setQtt}  />
+          <Input value={props.qtt} onChange={props.setQtt} type='number' />
           <button onClick={increasedQtt}>+</button>
         </div>
         <div className={cn("actions")}>
