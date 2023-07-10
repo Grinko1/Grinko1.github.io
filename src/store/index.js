@@ -1,10 +1,9 @@
-import * as modules from './exports.js';
+import * as modules from "./exports.js";
 
 /**
  * Хранилище состояния приложения
  */
 class Store {
-
   /**
    * @param services {Services}
    * @param config {Object}
@@ -26,12 +25,43 @@ class Store {
      * profile: ProfileState
      * }} */
     this.actions = {};
-    for (const name of Object.keys(modules)) {
-      this.actions[name] = new modules[name](this, name, this.config?.modules[name] || {});
+    for (const name of Object.keys(modules))
+      this.createModule(name, name, this.config?.modules[name] || {});
+  }
+
+  createModule(name, moduleName, config = {}) {
+    console.log(name, "create store");
+    if (this.actions[name]) {
+      throw new Error(`${name} module already exist`);
+
+    }
+    this.actions[name] = new modules[moduleName](this, name, config);
+    this.state[name] = this.actions[moduleName].initState();
+  }
+
+  removeModule(name) {
+    console.log(`delete store ${name}`);
+  
+    if (this.actions[name]) {
+      delete this.actions[name];
+      delete this.state[name];
+    }
+
+  }
+
+  //the right
+  makeStore(name, moduleName, config = {}) {
+    if (!this.actions[name]) {
+      if (!modules[moduleName])
+        throw new Error(`Not found store module "${moduleName}"`);
+      config = {
+        ...(this.config.modules[moduleName] || {}),
+        ...config,
+      };
+      this.actions[name] = new modules[moduleName](this, name, config);
       this.state[name] = this.actions[name].initState();
     }
   }
-
   /**
    * Подписка слушателя на изменения состояния
    * @param listener {Function}
@@ -41,8 +71,8 @@ class Store {
     this.listeners.push(listener);
     // Возвращается функция для удаления добавленного слушателя
     return () => {
-      this.listeners = this.listeners.filter(item => item !== listener);
-    }
+      this.listeners = this.listeners.filter((item) => item !== listener);
+    };
   }
 
   /**
@@ -66,15 +96,15 @@ class Store {
    * Установка состояния
    * @param newState {Object}
    */
-  setState(newState, description = 'setState') {
+  setState(newState, description = "setState") {
     if (this.config.log) {
       console.group(
-        `%c${'store.setState'} %c${description}`,
-        `color: ${'#777'}; font-weight: normal`,
-        `color: ${'#333'}; font-weight: bold`,
+        `%c${"store.setState"} %c${description}`,
+        `color: ${"#777"}; font-weight: normal`,
+        `color: ${"#333"}; font-weight: bold`
       );
-      console.log(`%c${'prev:'}`, `color: ${'#d77332'}`, this.state);
-      console.log(`%c${'next:'}`, `color: ${'#2fa827'}`, newState);
+      console.log(`%c${"prev:"}`, `color: ${"#d77332"}`, this.state);
+      console.log(`%c${"next:"}`, `color: ${"#2fa827"}`, newState);
       console.groupEnd();
     }
     this.state = newState;

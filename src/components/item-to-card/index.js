@@ -3,7 +3,6 @@ import { cn as bem } from "@bem-react/classname";
 import "./style.css";
 import Input from "@src/components/input";
 
-
 function ItemToCard(props) {
   const cn = bem("ItemToCard");
 
@@ -22,8 +21,10 @@ function ItemToCard(props) {
   const callbacks = {
     onAdd: (_id, qtt) => {
       if (props.qtt > 0) {
-        props.onAdd(props._id, props.qtt);
-        props.onClose();
+        const productId = props.props.productId;
+        const qtt = props.qtt;
+
+        props.onClose({ productId, qtt });
       }
     },
   };
@@ -33,7 +34,7 @@ function ItemToCard(props) {
       <div className={cn()}>
         <div className={cn("qtt")}>
           <button onClick={decreasedQtt}>-</button>
-          <Input value={props.qtt} onChange={props.setQtt} type='number' />
+          <Input value={props.qtt} onChange={props.setQtt} type="number" />
           <button onClick={increasedQtt}>+</button>
         </div>
         <div className={cn("actions")}>

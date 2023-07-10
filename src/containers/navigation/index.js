@@ -21,7 +21,7 @@ function Navigation() {
   const callbacks = {
      openModal: useCallback(
       (name) => {
-        store.actions.modals.open("basket");
+        store.actions.modals.open("Basket");
       },
       [store]),
     // Открытие модалки корзины

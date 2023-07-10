@@ -1,5 +1,4 @@
-import { memo, useCallback } from "react";
-import { useDispatch, useStore as useStoreRedux } from "react-redux";
+import { memo, useCallback, useEffect } from "react";
 import useStore from "@src/hooks/use-store";
 import useSelector from "@src/hooks/use-selector";
 import useTranslate from "@src/hooks/use-translate";
@@ -7,12 +6,23 @@ import ItemBasket from "@src/components/item-basket";
 import List from "@src/components/list";
 import ModalLayout from "@src/components/modal-layout";
 import BasketTotal from "@src/components/basket-total";
-import modalsActions from "@src/store-redux/modals/actions";
 import BtnAddElseToCart from "@src/components/btn-add-else-to-cart";
+import useInit from "@src/hooks/use-init";
 
-function Basket() {
+function Basket({ onClose }) {
   const store = useStore();
-  const dispatch = useDispatch();
+
+  useInit(() => {
+    store.createModule("catalog_copy", "catalog", { saveUrl: false });
+    store.actions.catalog_copy.initParams({});
+  });
+
+  //??
+  useEffect(() => {
+    return () => {
+      store.removeModule("catalog_copy");
+    };
+  }, []);
 
   const select = useSelector((state) => ({
     list: state.basket.list,
@@ -24,41 +34,19 @@ function Basket() {
     // Удаление из корзины
     removeFromBasket: useCallback(
       (_id) => store.actions.basket.removeFromBasket(_id),
-      [store,]
+      [store]
     ),
-    // Закрытие любой модалки
-    closeModal: useCallback(
-      (name) => {
-        store.actions.modals.close("basket");
-        // dispatch(modalsActions.close("basket"));
-      },
-      [store ]
-    ),
-    openModalBasket: useCallback(() => {
-      dispatch(modalsActions.open("addElseToCart"));
+    openModal: useCallback(async () => {
+      const res = await store.actions.modals.open("ModalList");
+      if (res) {
+        store.actions.basket.addArrayToBasket(res);
+        store.actions.catalog_copy?.resetWaitingList();
+      }
     }, [store]),
-    openModal: useCallback(
-      (name) => {
-        store.actions.modals.open("listToCart");
-      },
-      [store]
-    ),
-    // Добавление в корзину
-    addToBasket: useCallback(
-      (_id) => {
-        store.actions.basket.addToBasket(_id);
-      },
-      [store]
-    ),
+
   };
 
   const { t } = useTranslate();
-
-
-
-  const onClose = () => {
-     callbacks.closeModal("basket");
-}
 
   const renders = {
     itemBasket: useCallback(

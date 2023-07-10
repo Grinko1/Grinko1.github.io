@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, useCallback } from "react";
 import useStore from "@src/hooks/use-store";
 import useTranslate from "@src/hooks/use-translate";
 import useInit from "@src/hooks/use-init";
@@ -23,7 +23,6 @@ function Main() {
     [],
     true
   );
-
   const { t } = useTranslate();
 
   return (
@@ -33,8 +32,8 @@ function Main() {
         <LocaleSelect />
       </Head>
       <Navigation />
-      <CatalogFilter />
-      <CatalogList />
+      <CatalogFilter moduleName="catalog" />
+      <CatalogList moduleName="catalog" />
     </PageLayout>
   );
 }

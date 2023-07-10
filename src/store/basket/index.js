@@ -15,6 +15,7 @@ class BasketState extends StoreModule {
 
 
   async addArrayToBasket(arr, qtt) {
+
     let sum = 0;
     let newQtt = qtt || 1;
     let list = [...this.getState().list];

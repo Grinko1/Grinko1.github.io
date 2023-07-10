@@ -6,20 +6,19 @@ import Item from "@src/components/item";
 import List from "@src/components/list";
 import Pagination from "@src/components/pagination";
 import Spinner from "@src/components/spinner";
-import { useDispatch, useSelector as useSelectorRedux } from "react-redux";
 import ItemBasketModal from "@src/components/item-basket-modal";
 
 function CatalogList(props) {
   const store = useStore();
+  const moduleName = props.moduleName || "catalog";
+
   const select = useSelector((state) => ({
-    list: state.catalog.list,
-    page: state.catalog.params.page,
-    limit: state.catalog.params.limit,
-    count: state.catalog.count,
-    waiting: state.catalog.waiting,
-
+    page: state[moduleName].params.page,
+    limit: state[moduleName].params.limit,
+    count: state[moduleName].count,
+    waiting: state[moduleName].waiting,
+    list: state[moduleName].list,
   }));
-
 
   const callbacks = {
     // Добавление в корзину
@@ -37,20 +36,23 @@ function CatalogList(props) {
     ),
     select: useCallback(
       (_id) => {
-        store.actions.catalog.selectItem(_id);
+        store.actions[moduleName]?.selectItem(_id);
       },
       [store]
     ),
 
     openModal: useCallback(
-      (name, id) => {
-        store.actions.modals.open(name, id);
+      async (name, { productId, qtt }) => {
+        const res = await store.actions.modals.open(name, { productId, qtt });
+        if (res) {
+          await store.actions.basket.addToBasket(res.productId, res.qtt);
+        }
       },
       [store]
     ),
     // Пагинация
     onPaginate: useCallback(
-      (page) => store.actions.catalog.setParams({ page }),
+      (page) => store.actions[moduleName]?.setParams({ page }),
       [store]
     ),
     // генератор ссылки для пагинатора
@@ -69,16 +71,15 @@ function CatalogList(props) {
 
   const { t } = useTranslate();
 
-  const openModalAndGetId = (_id) => {
-    callbacks.openModal("add", _id);
+  const openModalAndGetId = ({ productId: _id }) => {
+    callbacks.openModal("AddingToCart", { productId: _id });
   };
-
 
   const renders = {
     item: useCallback(
       (item) => (
         <>
-          {props.useId === "modal_list_to_add" ? (
+          {moduleName === "catalog_copy" ? (
             <ItemBasketModal
               item={item}
               openModalBasket={openModalAndGetId}
@@ -99,7 +100,6 @@ function CatalogList(props) {
       [callbacks.openModalBasket, t]
     ),
   };
-
 
   return (
     <Spinner active={select.waiting}>

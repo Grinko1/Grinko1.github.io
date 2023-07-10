@@ -11,7 +11,7 @@ function Item(props) {
 
   const callbacks = {
     openModalBasket: (e) => {
-      props.openModalBasket(props.item._id)},
+      props.openModalBasket({productId:props.item._id})},
   };
 
   return (
