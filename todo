@@ -1,0 +1,11 @@
+//  1 i18 translate js/ translations - index.js(import json)
+//  2 interface Services , defaultHeader
+// 3   dispatch Type
+// 4   const { t }: any = useTranslate();
+// 5  select = useSelector((state: any) 
+// 6    const Component = modals[item.name];
+// 7 useSelector
+// 8 useStore
+// 9 StoreContext
+// 10 class Store
+// 11 

@@ -6,6 +6,7 @@ import React, { useCallback } from "react";
 import useSelector from "@src/hooks/use-selector";
 import ModalLayout from "@src/components/modal-layout";
 import ModalList from "@src/components/modal-list";
+import React from "react";
 
 const Modals = () => {
   const store = useStore();
