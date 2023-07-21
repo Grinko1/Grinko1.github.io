@@ -10,7 +10,7 @@ interface IItemBasketModal {
   item: Product;
   labelCurr?: string;
   link: string;
-  select: (arg0: string) => void;
+  select: (id: string) => void;
   labelAdd?:string
 }
 

@@ -8,7 +8,7 @@ import React from "react";
 
 interface IBasketTool {
   sum:number,
-  t:(arg0:string, arg1?:number)=> string
+  t:(str:string, plural?:number)=> string
 }
 
 function BasketTotal({sum, t}: IBasketTool) {

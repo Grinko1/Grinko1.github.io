@@ -8,7 +8,7 @@ import { Article } from "./types";
 export interface IArticleCard {
   article: Article;
   onAdd: (id?: string | number) => void;
-  t: (arg0?: string) => string;
+  t: (str?: string) => string;
 }
 
 function ArticleCard({ article, onAdd, t }: IArticleCard) {

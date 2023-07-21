@@ -9,10 +9,10 @@ import Spinner from "@src/components/spinner";
 import ItemBasketModal from "@src/components/item-basket-modal";
 import React from "react";
 import { Product } from "@src/general-types";
-import { TModuleNames, TStore } from "@src/store/types";
+import { TStore, TStoreModuleKey } from "@src/store/types";
 
 interface ICatalogList {
-  moduleName: string;
+  moduleName: TStoreModuleKey<'catalog'>;
 }
 type OpenModalParams = {
   productId?: string;
@@ -70,6 +70,7 @@ function CatalogList(props: ICatalogList) {
 
     makePaginatorLink: useCallback(
       (page: any): string => {
+      //@ts-ignore
         return `?${new URLSearchParams({
           page,
           limit: select.limit,

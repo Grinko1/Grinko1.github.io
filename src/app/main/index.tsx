@@ -12,6 +12,7 @@ import TopHead from "@src/containers/top-head";
 import React from "react";
 
 
+
 function Main() {
   const store = useStore();
 
@@ -20,6 +21,8 @@ function Main() {
       await Promise.all([
         store.actions.catalog.initParams(),
         store.actions.categories.load(),
+        store.actions.countries.load(),
+        store.actions.catalog.loadSelectedCountry()
       ]);
     },
     [],

@@ -1,4 +1,6 @@
+import { Option } from "@src/components/custom-select";
 import { Product } from "@src/general-types";
+import { Country } from "../countries/types";
 
 export interface InitStateCatalog {
   list: Product[];
@@ -8,10 +10,13 @@ export interface InitStateCatalog {
     sort: string;
     query: string;
     category: string;
+    madeIn: string;
   };
   count: number;
   waiting: boolean;
   selectedList: Product[];
+  selectedCountry:Option[] ;
+  selectedCountryIds:any
 }
 export interface ValidParams {
   page?: number;
@@ -19,6 +24,7 @@ export interface ValidParams {
   sort?: string;
   query?: string;
   category?: string;
+  madeIn?: string;
 }
 
 export interface StateCatalogConfig {

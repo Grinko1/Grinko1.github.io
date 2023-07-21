@@ -21,17 +21,16 @@ class CatalogState extends StoreModule<StateCatalogConfig, InitStateCatalog> {
         sort: "order",
         query: "",
         category: "",
+        madeIn: "",
       },
       count: 0,
       waiting: false,
       selectedList: [],
+      selectedCountry: [],
+      selectedCountryIds: [],
     };
   }
-  
 
-    getState(): InitStateCatalog {
-    return super.getState()  as InitStateCatalog;
-  }
   /**
    * Инициализация параметров.
    * Восстановление из адреса
@@ -53,6 +52,7 @@ class CatalogState extends StoreModule<StateCatalogConfig, InitStateCatalog> {
       if (urlParams.has("query")) validParams.query = urlParams.get("query");
       if (urlParams.has("category"))
         validParams.category = urlParams.get("category");
+      if (urlParams.has("madeIn")) validParams.madeIn = urlParams.get("madeIn");
     }
 
     await this.setParams(
@@ -79,7 +79,10 @@ class CatalogState extends StoreModule<StateCatalogConfig, InitStateCatalog> {
    * @param [replaceHistory] {Boolean} Заменить адрес (true) или новая запись в истории браузера (false)
    * @returns {Promise<void>}
    */
-  async setParams(newParams: object = {}, replaceHistory: boolean = false): Promise<void> {
+  async setParams(
+    newParams: object = {},
+    replaceHistory: boolean = false
+  ): Promise<void> {
     const params = { ...this.getState().params, ...newParams };
 
     // Установка новых параметров и признака загрузки
@@ -117,15 +120,16 @@ class CatalogState extends StoreModule<StateCatalogConfig, InitStateCatalog> {
         sort: params.sort,
         "search[query]": params.query,
         "search[category]": params.category,
+        "search[madeIn]": params.madeIn,
       },
       {
         skip: 0,
         "search[query]": "",
         "search[category]": "",
+        "search[madeIn]": "",
       }
     );
-    
-    
+
     const res = await this.services.api.request({
       url: `/api/v1/articles?${new URLSearchParams(apiParams)}`,
     });
@@ -182,6 +186,83 @@ class CatalogState extends StoreModule<StateCatalogConfig, InitStateCatalog> {
       ...this.getState(),
       selectedList: [],
     });
+  }
+  async loadSelectedCountry() {
+    let id = this.getState().params.madeIn;
+    console.log(id, id.length, "id");
+    let idsForArr:any;
+    if (id.length > 1) {
+      idsForArr = id.split("|");
+
+    }else{
+      idsForArr =[]
+      id = ''
+        this.setState({
+      ...this.getState(),
+      params: {
+        ...this.getState().params,
+        madeIn: '',
+      },
+    });
+    }
+
+    console.log(idsForArr, "idsForArr loadSelectedCountry");
+    let res;
+    if (id) {
+      if (id.includes("|")) {
+        console.log("|");
+        res = await this.services.api.request({
+          url: `/api/v1/countries?search[ids]=${id}?lang=ru&fields=`,
+        });
+        console.log(res.data.result.items, "res.data.result.items");
+        this.setState(
+          {
+            ...this.getState(),
+            selectedCountry: res.data.result.items,
+            selectedCountryIds: idsForArr,
+          },
+          "Contries загружены"
+        );
+      } else {
+        res = await this.services.api.request({
+          url: `/api/v1/countries/${id}?lang=ru&fields=`,
+        });
+        console.log([res.data.result], "[res.data.result]");
+        this.setState(
+          {
+            ...this.getState(),
+            selectedCountry: [res.data.result],
+            selectedCountryIds: idsForArr,
+          },
+          "Contries загружены"
+        );
+      }
+    }
+  }
+  setSelectedCoutries(id: string) {
+    const countries = [...this.getState().selectedCountryIds];
+  
+    const exist = countries.findIndex((item) => item === id);
+      console.log(countries, exist, 'countries')
+    if (exist === -1) {
+      countries.push(id);
+    } else {
+      countries.splice(exist, 1);
+    }
+    let IdsStr = countries.filter((id) => id.trim() !== "").join("|") + "|";
+    console.log(IdsStr.length);
+
+    this.setState({
+      ...this.getState(),
+      selectedCountryIds: countries,
+      params: {
+        ...this.getState().params,
+        madeIn: IdsStr.length > 1 ? IdsStr : '',
+      },
+    });
+    this.setParams({ madeIn: IdsStr.length > 1 ? IdsStr : '', page: 1 });
+
+    console.log(IdsStr, "IdsStr");
   }
 }
 

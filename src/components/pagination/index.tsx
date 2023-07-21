@@ -9,8 +9,8 @@ count: number,
 limit: number,
 page: number,
 indent: number,
-onChange: (arg0: number) => void,
-makeLink: (arg0: number) => string
+onChange: (page: number) => void,
+makeLink: (page: number) => string
 }
 function Pagination(props:IPagination) {
 

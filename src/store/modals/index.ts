@@ -12,9 +12,9 @@ class ModalsState extends StoreModule<Config, InitStateModals> {
       modals: [],
     };
   }
-   getState(): InitStateModals {
-    return super.getState() as InitStateModals;
-  }
+  //  getState() {
+  //   return super.getState() as InitStateModals;
+  // }
 
   async open(name: string, props: any) {
     const id = generateCode();

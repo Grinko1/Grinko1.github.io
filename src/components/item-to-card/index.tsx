@@ -6,9 +6,9 @@ import React from "react";
 
 interface IItemToCard {
   qtt: number;
-  setQtt: (arg0?: number) => void;
+  setQtt: (num?: number) => void;
   onClose: ({}:any) => void;
-  t: (arg0: string) => string;
+  t: (str: string) => string;
   productId?:string;
 }
 

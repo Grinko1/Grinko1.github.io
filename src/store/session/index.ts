@@ -20,9 +20,9 @@ class SessionState extends StoreModule<SessionStateConfig, InitStateSession> {
       exists: false,
     };
   }
-    getState(): InitStateSession {
-    return super.getState() as InitStateSession;
-  }
+  //   getState(): InitStateSession {
+  //   return super.getState() as InitStateSession;
+  // }
 
   /**
    * Авторизация (вход)

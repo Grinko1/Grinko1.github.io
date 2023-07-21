@@ -6,7 +6,7 @@ import { Product } from "@src/general-types";
 
 interface IList {
   list: Item[] | undefined;
-  renderItem: (arg0: Item) => React.ReactNode;
+  renderItem: (el: Item) => React.ReactNode;
 }
 interface Item {
   _id: string;

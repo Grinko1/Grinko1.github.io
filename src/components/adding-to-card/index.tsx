@@ -4,7 +4,7 @@ import React, { useState } from "react";
 
 
 interface IAddingToCard {
-  t: (arg0: string) => string;
+  t: (value: string) => string;
   closeModal: ({}?:any) => void;
 }
 const AddingToCard = ({ t, closeModal }: IAddingToCard) => {

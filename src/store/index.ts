@@ -6,7 +6,6 @@ import {
   TStore,
   TStoreModules,
   TModuleNames,
-  TActions,
   StoreConfig,
 } from "@src/store/types";
 
@@ -30,7 +29,7 @@ class Store {
     this.config = config;
     this.listeners = [];
     this.state = initState;
-    this.actions = {};
+    this.actions = {} ;
 
     for (const name of Object.keys(modules) as TModuleNames[]) {
       this.createModule(name, name, this.config.modules[name] || {});

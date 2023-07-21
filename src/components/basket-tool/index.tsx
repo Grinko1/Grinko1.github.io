@@ -9,7 +9,7 @@ interface IBasketTool {
   sum:number, 
   amount: number,
   onOpen: () => void,
-  t:(arg0: string, amount?: number) => string
+  t:(str: string, amount?: number) => string
 }
 function BasketTool({sum, amount, onOpen, t}:IBasketTool) {
   const cn = bem('BasketTool');

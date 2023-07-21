@@ -3,6 +3,6 @@
  * @returns {Function}
  */
 
-export default function codeGenerator(start = 0): Function {
+export default function codeGenerator(start:number = 0): Function {
   return () => ++start;
 }

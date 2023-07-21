@@ -17,9 +17,6 @@ class CategoriesState extends StoreModule<Config, InitStateCategories> {
       waiting: false,
     };
   }
-    getState(): InitStateCategories {
-    return super.getState() as InitStateCategories;
-  }
 
   /**
    * Загрузка списка товаров

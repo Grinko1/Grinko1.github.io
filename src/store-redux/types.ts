@@ -1,10 +1,7 @@
 import { Action } from "redux";
-import { ArticleAction, ArticleData } from "./article/types";
+import { ArticleAction, ArticleData, InitStateArticle } from "./article/types";
 
-type RootState = {
-  data: ArticleData | {};
-  waiting: boolean;
-};
+type RootState = InitStateArticle
 
 
 type RootAction = Action<ArticleAction>; 

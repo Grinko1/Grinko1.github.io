@@ -20,7 +20,7 @@ function Input(props: IInput) {
   const [value, setValue] = useState(props.value);
 
   const onChangeDebounce = useCallback(
-    debounce((value: any) => props.onChange(value, props.name), 600),
+    debounce((value) => props.onChange(value, props.name), 600),
     [props.onChange, props.name]
   );
 

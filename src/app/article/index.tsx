@@ -15,6 +15,7 @@ import shallowequal from "shallowequal";
 import articleActions from "@src/store-redux/article/actions";
 import React from "react";
 import { TStore } from "@src/store/types";
+import { RootState } from "@src/store-redux/types";
 
 function Article() {
   const store = useStore();
@@ -31,7 +32,7 @@ function Article() {
 
   const select = useSelector(
     (state:any) => ({
-      ar: state.article.data,
+      ar: state,
       article: state.article.data,
       waiting: state.article.waiting,
     }),

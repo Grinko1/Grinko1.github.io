@@ -3,9 +3,9 @@ import "./style.css";
 import React from "react";
 
 interface ISelect {
-  onChange: (arg0?: string) => void;
+  onChange: (value?: string | number) => void;
   options: Options[];
-  value: string;
+  value: string | number;
 }
 interface Options {
   value: string | number;

@@ -28,8 +28,8 @@ class StoreModule<Config,  State> {
     return {} as State; 
   }
 
-  getState() {
-    return this.store.getState()[this.name];
+  getState():State {
+    return this.store.getState()[this.name] as State;
   }
 
   setState(newState: State, description: string = "setState"): void {

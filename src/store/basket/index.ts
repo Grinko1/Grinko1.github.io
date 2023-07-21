@@ -17,9 +17,9 @@ class BasketState extends StoreModule<Config, InitStateBasket> {
     };
   }
 
-  getState(): InitStateBasket {
-    return super.getState() as InitStateBasket;
-  }
+  // getState(): InitStateBasket {
+  //   return super.getState() as InitStateBasket;
+  // }
   async addArrayToBasket(arr: Product[], qtt: number) {
     let sum = 0;
     let newQtt = qtt || 1;
