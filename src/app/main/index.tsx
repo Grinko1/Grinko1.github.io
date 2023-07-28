@@ -10,8 +10,8 @@ import CatalogList from "@src/containers/catalog-list";
 import LocaleSelect from "@src/containers/locale-select";
 import TopHead from "@src/containers/top-head";
 import React from "react";
-
-
+import useSelector from "@src/hooks/use-selector";
+import { TStore } from "@src/store/types";
 
 function Main() {
   const store = useStore();
@@ -22,13 +22,14 @@ function Main() {
         store.actions.catalog.initParams(),
         store.actions.categories.load(),
         store.actions.countries.load(),
-        store.actions.catalog.loadSelectedCountry()
+        store.actions.catalog.loadSelectedCountry(),
       ]);
     },
     [],
     true
   );
-  const { t }:any = useTranslate();
+  const { t }: any = useTranslate();
+
 
   return (
     <PageLayout>
@@ -39,6 +40,7 @@ function Main() {
       <Navigation />
       <CatalogFilter moduleName="catalog" />
       <CatalogList moduleName="catalog" />
+      <CatalogFilter moduleName="catalog" />
     </PageLayout>
   );
 }

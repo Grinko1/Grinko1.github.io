@@ -30,11 +30,9 @@ function CatalogFilter(props: ICatalogFilter) {
     canLoad: state.countries.canLoad,
     selectedCountries: state.catalog.selectedCountry,
     countriesArr: state.catalog.selectedCountryIds,
+    error:state.countries.error
   }));
 
-  // console.log(select.countriesArr, "selectedCountryIds");
-    console.log(select.selectedCountries, "selectedCountry"); 
-  //   console.log(select.madeIn, 'madeIn')
   const [skip, setSkip] = useState(0);
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -63,11 +61,9 @@ function CatalogFilter(props: ICatalogFilter) {
     ),
     // Фильтр по странам
     onCountry: useCallback(
-      (option: Option) => {
-        //simple click
-   
-        // store.actions[moduleName]?.setParams({ madeIn: option._id, page: 1 }); 
-            //  store.actions[moduleName]?.setSelectedCoutries(option._id); 
+      () => {
+        // store.actions[moduleName]?.setParams({ madeIn: option._id, page: 1 });
+        //  store.actions[moduleName]?.setSelectedCoutries(option._id);
         store.actions[moduleName].loadSelectedCountry();
       },
       [store]
@@ -77,11 +73,21 @@ function CatalogFilter(props: ICatalogFilter) {
       (title: string) => store.actions.countries.search(title),
       [store]
     ),
-    //test
+    //добавление айди в массив выбранных стран
     setArrSelectedCountries: useCallback(
       (id: string) => store.actions.catalog.setSelectedCoutries(id),
       [store]
     ),
+    //тогл у стран выбрана/невыбрана
+    setSelectToCountry: useCallback(
+      (id: string) => store.actions.countries.selectedCountries(id),
+      [store]
+    ),
+    //сброс всех выбранных стран с массива выбранного и юрл
+    resetSelectedCountries: useCallback(() => {
+      store.actions.catalog.resetSelectedCountries();
+      store.actions.countries.resetSelectedCountries();
+    }, [store]),
   };
 
   const options = {
@@ -116,6 +122,7 @@ function CatalogFilter(props: ICatalogFilter) {
             value: item._id,
             title: item.title,
             code: item.code,
+            selected: item.selected ? item.selected : false,
           };
         }),
       ],
@@ -151,6 +158,9 @@ function CatalogFilter(props: ICatalogFilter) {
         setSearchTerm={setSearchTerm}
         selectedValue={select.selectedCountries}
         setArrSelectedCountries={callbacks.setArrSelectedCountries}
+        setSelectToCountry={callbacks.setSelectToCountry}
+        resetSelectedCountries={callbacks.resetSelectedCountries}
+        error={select.error}
       />
 
       <Select

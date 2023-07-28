@@ -2,6 +2,7 @@ import StoreModule from "../module";
 import exclude from "@src/utils/exclude";
 import { InitStateCatalog, StateCatalogConfig, ValidParams } from "./types";
 import { Product } from "@src/general-types";
+import Store from "..";
 
 /**
  * Состояние каталога - параметры фильтра исписок товара
@@ -189,32 +190,30 @@ class CatalogState extends StoreModule<StateCatalogConfig, InitStateCatalog> {
   }
   async loadSelectedCountry() {
     let id = this.getState().params.madeIn;
-    console.log(id, id.length, "id");
-    let idsForArr:any;
+
+    let idsForArr: any;
     if (id.length > 1) {
       idsForArr = id.split("|");
-
-    }else{
-      idsForArr =[]
-      id = ''
-        this.setState({
-      ...this.getState(),
-      params: {
-        ...this.getState().params,
-        madeIn: '',
-      },
-    });
+    } else {
+      idsForArr = [];
+      id = "";
+      this.setState({
+        ...this.getState(),
+        selectedCountry: [],
+        params: {
+          ...this.getState().params,
+          madeIn: "",
+        },
+      });
     }
 
-    console.log(idsForArr, "idsForArr loadSelectedCountry");
     let res;
     if (id) {
       if (id.includes("|")) {
-        console.log("|");
         res = await this.services.api.request({
           url: `/api/v1/countries?search[ids]=${id}?lang=ru&fields=`,
         });
-        console.log(res.data.result.items, "res.data.result.items");
+
         this.setState(
           {
             ...this.getState(),
@@ -227,7 +226,7 @@ class CatalogState extends StoreModule<StateCatalogConfig, InitStateCatalog> {
         res = await this.services.api.request({
           url: `/api/v1/countries/${id}?lang=ru&fields=`,
         });
-        console.log([res.data.result], "[res.data.result]");
+
         this.setState(
           {
             ...this.getState(),
@@ -239,31 +238,49 @@ class CatalogState extends StoreModule<StateCatalogConfig, InitStateCatalog> {
       }
     }
   }
+  
   setSelectedCoutries(id: string) {
     const countries = [...this.getState().selectedCountryIds];
-  
+
     const exist = countries.findIndex((item) => item === id);
-      console.log(countries, exist, 'countries')
     if (exist === -1) {
       countries.push(id);
     } else {
       countries.splice(exist, 1);
     }
+
     let IdsStr = countries.filter((id) => id.trim() !== "").join("|") + "|";
-    console.log(IdsStr.length);
 
-    this.setState({
-      ...this.getState(),
-      selectedCountryIds: countries,
-      params: {
-        ...this.getState().params,
-        madeIn: IdsStr.length > 1 ? IdsStr : '',
+    this.setState(
+      {
+        ...this.getState(),
+        selectedCountryIds: countries,
+        params: {
+          ...this.getState().params,
+          madeIn: IdsStr.length > 1 ? IdsStr : "",
+        },
       },
-    });
-    this.setParams({ madeIn: IdsStr.length > 1 ? IdsStr : '', page: 1 });
-
-    console.log(IdsStr, "IdsStr");
+      "set new selected countries"
+    );
+    this.setParams({ madeIn: IdsStr.length > 1 ? IdsStr : "", page: 1 });
   }
+  resetSelectedCountries() {
+    this.setState(
+      {
+        ...this.getState(),
+        selectedCountryIds: [],
+        selectedCountry: [],
+        params: {
+          ...this.getState().params,
+          madeIn: "",
+        },
+      },
+      "reset selected countries"
+    );
+    this.setParams({ madeIn: "", page: 1 });
+    
+  }
+ 
 }
 
 export default CatalogState;

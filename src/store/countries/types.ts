@@ -6,11 +6,13 @@ export interface InitStateCountries {
   waiting: boolean;
   total:number;
   canLoad:boolean;
+  error:string;
 
 }
 export interface Country {
   
         _id: string,
+        selected?:boolean,
         _key?: string,
         title: string,
         code: string,

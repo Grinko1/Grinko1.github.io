@@ -16,13 +16,17 @@ interface ICustomSelect {
   searchTerm: string;
   selectedValue: Option[];
   setArrSelectedCountries: (id: string) => void;
+  setSelectToCountry: (id: string) => void;
+  resetSelectedCountries: () => void;
+  error: string
 }
 export interface Option {
   _id: string;
   value: string | number;
   title: string;
   code: string;
-  selected?:boolean
+  selected?: boolean;
+
 }
 
 const CustomSelect = (props: ICustomSelect) => {
@@ -36,7 +40,7 @@ const CustomSelect = (props: ICustomSelect) => {
     selectedValue,
   } = props;
 
-  const [selectedOption, setSelectedOption] = useState<any>(selectedValue);
+  const [selectedOption, setSelectedOption] = useState<Option[]>(selectedValue);
   const [showOptions, setShowOptions] = useState(false);
   const [focusedOption, setFocusedOption] = useState<Option | null>(null);
 
@@ -45,19 +49,24 @@ const CustomSelect = (props: ICustomSelect) => {
 
   const cn = bem("CustomSelect");
 
-
+  //установка выбранной страны (страна либо все)
   useEffect(() => {
-    setSelectedOption(selectedValue);
+    if (selectedValue.length) {
+      setSelectedOption(selectedValue);
+    } else {
+      setSelectedOption([{ _id: "", value: "", title: "Все", code: "All" }]);
+    }
   }, [selectedValue]);
 
-  console.log(selectedOption)
-
+  //открытие/закрытие
   const handleShowOptions = (e: React.MouseEvent) => {
     e.stopPropagation();
     setShowOptions(!showOptions);
     setSearchTerm("");
   };
 
+  //при появлении последнего эл отступ увеличивается
+  // происходит дозагрузка
   const increaceSkip = () => {
     setSkip(skip + 1);
   };
@@ -84,18 +93,37 @@ const CustomSelect = (props: ICustomSelect) => {
     searchOption(event.target.value);
   };
 
-
+  // устанавливает страну, сбрасывает поиск и закрывает селект
   const handleOptionClick = (option: Option) => {
-    props.setArrSelectedCountries(option._id);
-    setSelectedOption([option]);
-    props.onChange(option);
-    setSearchTerm("");
+    // клик на "все"
+    if (option._id === "") {
+      props.resetSelectedCountries();
+    } else {
+      props.setArrSelectedCountries(option._id);
+      setSelectedOption([...selectedOption,option]);
+      props.onChange(option);
+      props.setSelectToCountry(option._id);
+      setSearchTerm("");
+    }
 
     setShowOptions(false);
   };
 
- 
+  // закрытие селекта на клик снаружи
+  const handleClickOutside = () => {
+    if (showOptions) {
+      setShowOptions(false);
+    }
+  };
+  useEffect(() => {
+    document.addEventListener("click", handleClickOutside);
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, [showOptions]);
 
+  //навигация клавишами
+  // открытие/ закрытие
   const handleKeyOpenClose = (event: React.KeyboardEvent) => {
     if (event.key === "Enter") {
       event.preventDefault();
@@ -142,10 +170,10 @@ const CustomSelect = (props: ICustomSelect) => {
       currentIndex === 0 ? props.options.length - 1 : currentIndex - 1
     ];
   };
-  const deleteFromSelected = (option: Option)=>{
-  props.setArrSelectedCountries(option._id);
-  props.onChange(option);
-  }
+  const deleteFromSelected = (option: Option) => {
+    props.setArrSelectedCountries(option._id);
+    props.onChange(option);
+  };
 
   return (
     <div
@@ -154,13 +182,33 @@ const CustomSelect = (props: ICustomSelect) => {
       onKeyDown={handleKeyOpenClose}
       // onClick={(e) => handleShowOptions(e)}
     >
-      <div className={cn("choozen")}>
-        {selectedOption && selectedOption?.map((item:any) => (
-          <div className={cn("header")} key={item.code} onClick={ ()=> deleteFromSelected(item)}>
-            <span className="selectedOptions">{item?.code}</span>
+      <div className={cn("choozen")} >
+        {selectedOption.length === 1 && selectedOption[0].code === "All" ? (
+          selectedOption?.map((item: any) => (
+            <div
+              className={cn("header")}
+              key={item.code}
+              onClick={(e) => handleShowOptions(e)}
+            >
+              <span className="optionName oneVariant">{item?.code}</span>
+              <p>{item.title}</p>
+            </div>
+          ))
+        ) : (
+          <div className="selectedList">
+            {" "}
+            {selectedOption?.map((item: any) => (
+              <div
+                className={cn("header")}
+                key={item.code}
+                onClick={() => deleteFromSelected(item)}
+              >
+                <span className="selectedOptions">{item?.code}</span>
+              </div>
+            ))}
           </div>
-        ))}
-        <div className={cn("arrow")}  onClick={(e) => handleShowOptions(e)}>
+        )}
+        <div className={cn("arrow")} onClick={(e) => handleShowOptions(e)}>
           <i
             className={showOptions ? "arrow arrowOpen" : "arrow arrowClose"}
           ></i>
@@ -168,7 +216,7 @@ const CustomSelect = (props: ICustomSelect) => {
       </div>
       <div className={cn("container")}>
         {showOptions && (
-          <div className={cn("scrollWrapper")}>
+          <div className={cn("scrollWrapper")} >
             <ul className={cn("ul")}>
               <li key="1" className="selectInputWrapper">
                 <input
@@ -183,10 +231,9 @@ const CustomSelect = (props: ICustomSelect) => {
               {props.options.map((option) => (
                 <li
                   key={option._id}
-                  className={
-                    option?.title === selectedOption?.title ? "liChosen" : ""
-                  }
+                  className={option?.selected ? "liChosen" : ""}
                   role="option"
+                  //@ts-ignore
                   aria-selected={option === selectedOption}
                   id={option._id}
                   tabIndex={0}
@@ -199,10 +246,11 @@ const CustomSelect = (props: ICustomSelect) => {
                 </li>
               ))}
             </ul>
-
+          { !props.error.length && 
             <div ref={lastElement}>
               {props.waiting ? <LoadingAnimation /> : ""}
             </div>
+            }
           </div>
         )}
       </div>

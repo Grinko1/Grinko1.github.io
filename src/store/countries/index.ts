@@ -1,7 +1,7 @@
 import { Option } from "@src/components/custom-select";
 import StoreModule from "../module";
 import { Config } from "../types";
-import { InitStateCountries } from "./types";
+import { Country, InitStateCountries } from "./types";
 
 /**
  * Список стран
@@ -18,6 +18,7 @@ class CountriesState extends StoreModule<Config, InitStateCountries> {
       waiting: false,
       total: 0,
       canLoad: true,
+      error:''
     };
   }
 
@@ -25,7 +26,6 @@ class CountriesState extends StoreModule<Config, InitStateCountries> {
    * Загрузка списка товаров
    */
   async load(skip = 0) {
-
     skip = skip * 10;
 
     this.setState(
@@ -40,7 +40,6 @@ class CountriesState extends StoreModule<Config, InitStateCountries> {
     if (skip > 0) {
       let restSkip = Math.ceil(res.data.result.count / skip);
 
-      console.log(restSkip, "this.getState().total/ skip");
       if (restSkip === 1) {
         this.setState({
           ...this.getState(),
@@ -67,7 +66,6 @@ class CountriesState extends StoreModule<Config, InitStateCountries> {
     );
   }
 
- 
   async search(title = "", skip = 0) {
     skip = skip * 10;
 
@@ -81,6 +79,15 @@ class CountriesState extends StoreModule<Config, InitStateCountries> {
     });
 
 
+    if(!res.data.result.items.length){
+      this.setState({
+        ...this.getState(),
+        canLoad: false,
+        waiting: false,
+        error:'Не удалось найти',
+        total: res.data.result.count,
+      });
+    }
     if (skip > 0) {
       let restSkip = Math.ceil(res.data.result.count / skip);
       if (restSkip === 1) {
@@ -115,6 +122,28 @@ class CountriesState extends StoreModule<Config, InitStateCountries> {
     // Товар загружен успешно
   }
 
+  selectedCountries(id: string) {
+    const updatedList = this.getState().list.map((item) => {
+      if (item._id === id) {
+        return { ...item, selected: !item.selected };
+      } else {
+        return item;
+      }
+    });
+    this.setState({
+      ...this.getState(),
+      list: updatedList,
+    });
+  }
+  resetSelectedCountries() {
+    const updatedList = this.getState().list.map((item) => {
+      return { ...item, selected: false };
+    });
+    this.setState({
+      ...this.getState(),
+      list: updatedList,
+    });
+  }
 }
 
 export default CountriesState;

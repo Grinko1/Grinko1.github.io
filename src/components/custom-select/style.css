@@ -12,7 +12,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 0px 5px;
-  
+
   box-sizing: border-box;
 }
 .CustomSelect-header {
@@ -23,8 +23,18 @@
   height: 29px;
   width: 90%;
 }
-.selectedOptions{
-   display: block;
+
+.selectedList {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 5px;
+  overflow-x: scroll;
+  margin: 0 3px;
+
+}
+.selectedOptions {
+  display: block;
   width: 30px;
   height: 18px;
   background-color: #6f7eff;
@@ -35,9 +45,9 @@
   padding: 2px;
   cursor: pointer;
 }
-.selectedOptions::after{
-content: 'x';
-margin-left: 5px;
+.selectedOptions::after {
+  content: "x";
+  margin-left: 5px;
 }
 .CustomSelect-header p {
   white-space: nowrap;
@@ -121,10 +131,10 @@ margin-left: 5px;
   text-overflow: ellipsis;
 }
 .selectInputWrapper {
-  position: sticky; 
+  position: sticky;
   top: 0;
-  background-color: #fff; 
-  z-index: 2; 
+  background-color: #fff;
+  z-index: 2;
 }
 
 .selectInput {
