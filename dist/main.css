@@ -1,0 +1,717 @@
+.Menu {
+  display: flex;
+  list-style: none;
+  justify-content: flex-start;
+  padding: 20px;
+  margin: 0;
+  font-size: 18px;
+}
+
+.Menu-item {
+  display: block;
+  padding: 2px 4px 3px 2px;
+  margin: 0 2px;
+}
+
+.Menu-item:first-child {
+  margin-left: 0;
+  padding-left: 0;
+}
+
+.Menu-item:last-child {
+  margin-right: 0;
+  padding-right: 0;
+}
+
+/* Контрол с общими действиями */
+.BasketTool{
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px;
+  font-size: 18px;
+}
+
+.BasketTool-label{
+
+}
+
+.BasketTool-total{
+  font-weight: bold;
+  margin: 0 20px;
+}
+
+.SideLayout {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  padding: 0;
+  margin-left: -5px;
+  margin-right: -5px;
+  align-items: center;
+}
+
+.SideLayout_side_start {
+  justify-content: flex-start;
+}
+
+.SideLayout_side_end {
+  justify-content: flex-end;
+}
+
+.SideLayout_side_between {
+  justify-content: space-between;
+}
+
+.SideLayout_padding_small{
+  padding: 10px 20px;
+}
+
+.SideLayout_padding_medium{
+  padding: 20px;
+}
+
+.SideLayout-item {
+  margin: 0 5px;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: #535353;
+  font-family: sans-serif;
+}
+
+.PageLayout {
+  max-width: 1024px;
+  min-height: 100vh;
+  margin: 0 auto;
+  background: #fff;
+  box-sizing: border-box;
+  box-shadow: 0 0 15px 5px #0000003b;
+}
+
+.Head {
+  height: 80px;
+  background: #f5f5f5;
+  display: flex;
+  flex-wrap: nowrap;
+  padding: 0 15px;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid #ccc;
+}
+
+.Head-place{
+  margin: 0 5px;
+}
+
+.Head h1 {
+  margin: 0;
+  padding: 20px 0px 10px;
+}
+
+.Select{
+  font-size: 16px;
+  padding: 3px 2px 2px;
+}
+
+.Input{
+  font-size: 16px;
+  padding: 2px;
+}
+
+.Input_theme_big{
+  width: 300px;
+}
+
+
+.CustomSelect {
+  position: relative;
+}
+.CustomSelect-choozen {
+  width: 240px;
+  height: 30px;
+  font-size: 15px;
+  border: 1px solid #808dff;
+  border-bottom: none;
+  color: #191f4d;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px 5px;
+
+  box-sizing: border-box;
+}
+.CustomSelect-header {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  box-sizing: border-box;
+  height: 29px;
+  width: 90%;
+}
+
+.selectedList {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 5px;
+  overflow-x: scroll;
+  margin: 0 3px;
+
+}
+.selectedOptions {
+  display: block;
+  width: 30px;
+  height: 18px;
+  background-color: #6f7eff;
+  color: #fff;
+  text-align: center;
+  border-radius: 2px;
+  font-size: 13px;
+  padding: 2px;
+  cursor: pointer;
+}
+.selectedOptions::after {
+  content: "x";
+  margin-left: 5px;
+}
+.CustomSelect-header p {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.CustomSelect-arrow {
+  cursor: pointer;
+  display: block;
+  width: 20px;
+  text-align: center;
+}
+.arrow {
+  border: solid #191f4d;
+  border-width: 0 2px 2px 0;
+  display: inline-block;
+  padding: 3px;
+}
+.arrowClose {
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  margin-bottom: 3px;
+}
+.arrowOpen {
+  transform: rotate(-135deg);
+  -webkit-transform: rotate(-135deg);
+}
+.CustomSelect-container {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1;
+  background-color: #fff;
+  width: 240px;
+  border: 1px solid #808dff;
+  border-top: none;
+  cursor: pointer;
+  box-sizing: border-box;
+  max-height: 160px;
+  padding-right: 4px;
+}
+.CustomSelect-scrollWrapper {
+  max-height: 160px;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  position: relative;
+}
+.CustomSelect-ul {
+  list-style: none;
+  cursor: pointer;
+  margin-block-start: 0;
+  margin-block-end: 0;
+  padding: 3px;
+  position: relative;
+  z-index: 1;
+}
+.CustomSelect-scrollWrapper::-webkit-scrollbar {
+  width: 8px;
+}
+.CustomSelect-scrollWrapper::-webkit-scrollbar-thumb {
+  background-color: #e5e6e9;
+  border-radius: 4px;
+  width: 8px;
+  height: 60px;
+  /* z-index: 1; */
+}
+
+.CustomSelect-ul li {
+  height: 30px;
+  width: 100%;
+  padding: 0 4px;
+  box-sizing: border-box;
+  font-size: 15px;
+  color: #191f4d;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.selectInputWrapper {
+  position: sticky;
+  top: 0;
+  background-color: #fff;
+  z-index: 2;
+}
+
+.selectInput {
+  border: none;
+  height: 30px;
+  width: 215px;
+}
+.selectInput:focus {
+  outline: none;
+}
+.CustomSelect-ul li:has(.selectInput):hover {
+  background-color: #fff;
+}
+.CustomSelect-ul li:hover {
+  background-color: #dbdfff;
+}
+.liChosen {
+  background-color: #808dff;
+  color: #fff !important;
+}
+.optionName {
+  display: block;
+  width: 18px;
+  height: 18px;
+  background-color: #6f7eff;
+  color: #fff;
+  text-align: center;
+  border-radius: 2px;
+  font-size: 13px;
+  padding: 2px;
+}
+
+.dot-flashing {
+  position: relative;
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  background-color: #9880ff;
+  color: #9880ff;
+  left: 50%;
+  animation: dot-flashing 1s infinite linear alternate;
+  animation-delay: 0.5s;
+}
+.dot-flashing::before, .dot-flashing::after {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  top: 0;
+}
+.dot-flashing::before {
+  left:-15px;
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  background-color: #9880ff;
+  color: #9880ff;
+  animation: dot-flashing 1s infinite alternate;
+  animation-delay: 0s;
+}
+.dot-flashing::after {
+  left: 15px;
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  background-color: #9880ff;
+  color: #9880ff;
+  animation: dot-flashing 1s infinite alternate;
+  animation-delay: 1s;
+}
+
+@keyframes dot-flashing {
+  0% {
+    background-color: #9880ff;
+  }
+  50%, 100% {
+    background-color: rgba(152, 128, 255, 0.2);
+  }
+}
+.Item {
+  display: flex;
+  justify-content: flex-start;
+  transition: background-color 1s;
+  padding-left: 10px
+}
+
+.Item_selected {
+  background: #75aaf1;
+  color: #fff;
+}
+
+.Item-code {
+  padding: 20px 10px 20px 20px;
+}
+
+.Item-title {
+  width: 100%;
+  padding: 20px 10px;
+}
+
+.Item-title a{
+  color: #000;
+  text-decoration: none;
+}
+
+.Item-title a:hover{
+  color: #000;
+  text-decoration: underline;
+}
+
+.Item-actions {
+  padding: 20px 20px 20px 10px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 20px
+}
+
+.Item-price {
+  padding: 0 0 0 10px;
+  white-space: nowrap;
+  font-size: 18px;
+}
+
+.List{
+
+}
+
+.List-item {
+  border-bottom: 1px dashed #ccc;
+}
+
+.List-item:first-child{
+  border-top: 1px dashed #ccc;
+}
+
+.Pagination{
+  display: flex;
+  list-style: none;
+  justify-content: flex-end;
+  padding: 24px 20px;
+  font-size: 16px;
+  margin: 0;
+}
+
+.Pagination-item{
+  display: block;
+  padding: 2px 4px 2px 2px;
+  margin: 0;
+  cursor: pointer;
+  height: 20px;
+  min-width: 20px;
+  box-sizing: border-box;
+  text-align: center;
+  line-height: 18px;
+}
+
+.Pagination-item a,
+.Pagination-item a:hover,
+.Pagination-item a:active{
+  text-decoration: none;
+  color: black;
+}
+
+.Pagination-item:hover{
+  background: #E1E1E1;
+}
+
+.Pagination-item_active,
+.Pagination-item_active:hover,
+.Pagination-item_active a,
+.Pagination-item_active a:hover{
+  background: #0087E9;
+  color: #fff;
+}
+
+.Pagination-item_split,
+.Pagination-item_split:hover{
+  background: transparent;
+  cursor: default;
+  color: #CCCCCC;
+}
+
+
+
+.Spinner {
+  opacity: 0.5;
+}
+
+.ItemBasketModal {
+  display: flex;
+  justify-content: flex-start;
+  transition: background-color 0.5s;
+  padding-left: 10px;
+  box-sizing: border-box;
+}
+
+.ItemBasketModal_selected {
+background-color:#5daef766 ;
+  /* border: 1px solid #75aaf1; */
+}
+
+.ItemBasketModal-code {
+  padding: 20px 10px 20px 20px;
+}
+
+.ItemBasketModal-title {
+  width: 100%;
+  padding: 20px 10px;
+}
+
+.ItemBasketModal-title a{
+  color: #000;
+  text-decoration: none;
+}
+
+.ItemBasketModal-title a:hover{
+  color: #000;
+  text-decoration: underline;
+}
+
+.ItemBasketModal-actions {
+  padding: 20px 20px 20px 10px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 20px
+}
+
+.ItemBasketModal-price {
+  padding: 0 0 0 10px;
+  white-space: nowrap;
+  font-size: 18px;
+}
+
+.ArticleCard {
+  padding: 20px 40px;
+}
+
+.ArticleCard-description {
+  font-size: 18px;
+  margin: 20px 0;
+}
+
+.ArticleCard-prop {
+  margin: 20px 0;
+  display: flex;
+  justify-content: flex-start;
+  font-size: 18px
+}
+
+.ArticleCard-prop_size_big{
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.ArticleCard-label{
+  padding-right: 10px;
+}
+
+.ArticleCard-value{
+  font-weight: bold;
+}
+
+.Field {
+  margin: 20px 0;
+}
+
+.Field-label {
+
+}
+
+.Field_input {
+
+}
+
+.Field-error {
+  color: #f00;
+}
+
+.ProfileCard {
+  padding: 20px 20px;
+}
+
+.ProfileCard-title {
+  margin-top: 0;
+}
+
+.ProfileCard-prop {
+  margin: 20px 0;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.ProfileCard-prop_size_big{
+  font-size: 24px;
+}
+
+.ProfileCard-label{
+  padding-right: 5px;
+}
+
+.ProfileCard-value{
+  font-weight: bold;
+}
+
+.ItemToCard{
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ flex-direction: column;
+ gap: 30px;
+}
+.ItemToCard button{
+  cursor: pointer;
+}
+.ItemToCard-qtt{
+  display: flex;
+  gap: 10px;
+}
+.ItemToCard-qtt button{
+  width: 30px;
+}
+.ItemToCard-actions{
+  display: flex;
+  gap: 30px;
+}
+.ItemToCard-actions button{
+width: 75px;
+}
+
+body:has(.ModalLayout){
+  overflow: hidden;
+}
+
+.ModalLayout {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow-x: auto;
+  background: rgba(0,0,0,0.7);
+  z-index: 9999;
+  padding: 10px;
+  min-height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.ModalLayout-frame {
+  position: relative;
+  background: #ffffff;
+  margin: 0 auto;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 2px 5px 10px rgb(0 0 0 / 5%);
+  min-width: 600px;
+  width: min(100%, 960px);
+}
+
+.ModalLayout-head {
+  height: 80px;
+  background: #f5f5f5;
+  display: flex;
+  /*align-items: stretch;*/
+  justify-content: space-between;
+  padding: 0 30px 0 20px;
+}
+
+.ModalLayout-close{
+  align-self: center;
+}
+
+.ModalLayout-title{
+  margin: 0;
+  padding: 20px 0 10px;
+}
+
+.ModalLayout-content {
+  min-height: 100px;
+  padding: 70px 0;
+}
+
+/* Пункт списка */
+.ItemBasket {
+  display: flex;
+  justify-content: flex-start;
+  transition: background-color 1s;
+  padding-left: 10px
+}
+
+.ItemBasket-code {
+  padding: 20px 10px 20px 20px;
+}
+
+.ItemBasket-title {
+  width: 100%;
+  padding: 20px 10px;
+}
+
+.ItemBasket-title a{
+  color: #000;
+  text-decoration: none;
+}
+
+.ItemBasket-title a:hover{
+  color: #000;
+  text-decoration: underline;
+}
+
+.ItemBasket-right {
+  padding: 20px 20px 20px 10px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.ItemBasket-cell {
+  min-width: 95px;
+  text-align: right;
+  font-size: 18px;
+  white-space: nowrap;
+}
+
+/* Итого в корзине */
+.BasketTotal {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px;
+}
+
+.BasketTotal-cell {
+  min-width: 85px;
+  text-align: right;
+  font-weight: bold;
+  font-size: 18px;
+  padding-left: 10px;
+  white-space: nowrap;
+}
+
+
+.AddElseToCart {
+  margin: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.AddElseToCart-button{
+    cursor: pointer;
+}
