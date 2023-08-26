@@ -40,7 +40,6 @@ function Main() {
       <Navigation />
       <CatalogFilter moduleName="catalog" />
       <CatalogList moduleName="catalog" />
-      <CatalogFilter moduleName="catalog" />
     </PageLayout>
   );
 }
