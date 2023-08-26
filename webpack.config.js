@@ -8,7 +8,7 @@ let config = {
   context: path.join(__dirname, "/src"), // Директория с исходным кодом приложения
   entry: "index.tsx", // Главный файл приложения
   output: {
-    path: path.join(__dirname, "dist"), // Куда делать оброку
+    path: path.join(__dirname, "build"), // Куда делать оброку
     filename: "[name].js", // Шаблон для названия файлов
     clean: true, // Очистить ./dist перед сборкой
   },
